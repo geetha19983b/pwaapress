@@ -1,6 +1,9 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
+     <p>
+      email: {{ email }}
+    </p>
     <p>
       For a guide and recipes on how to configure / customize this project,<br>
       check out the
@@ -33,8 +36,26 @@
 <script>
 export default {
   name: 'HelloWorld',
+  created: function () {
+    console.log('Component created.');
+  },
+  mounted: function() {
+    fetch('https://randomuser.me/api/?results=1')
+    .then(
+      (response) => {
+        return response.json();
+      }
+    )
+    .then(
+      (reponseObject) => {
+        this.email = reponseObject.results[0].email;
+      } 
+    );
+    console.log('Component is mounted.');
+  },
   props: {
-    msg: String
+    msg: String,
+    email:String
   }
 }
 </script>
